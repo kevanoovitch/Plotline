@@ -18,8 +18,7 @@ public partial class MainWindowViewModel : ViewModelBase
             MonthlyBooks.Add(new MonthBook
             {
                 Month = new DateTime(currentYear,month,1),
-                BookTitle = "A default title", // TODO Remove placeholder string
-                MonthText = "Some text"
+                BookTitle = "A default title" // TODO Remove placeholder string
             });
         }
     }
