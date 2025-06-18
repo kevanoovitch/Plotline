@@ -1,0 +1,17 @@
+
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="PlotLineApp.Views.MonthBookControl"
+    xmlns:alias="clr-namespace:Plotline.Models"
+    x:DataType="alias:MonthBook"
+>
+
+
+    <Border Padding="10" Margin="5" BorderBrush="Grey" BorderThickness="1">
+        <StackPanel>
+            <TextBlock Text="{Binding MonthText}" FontWeight="Bold" />
+            <TextBlock Text="{Binding BookTitle}" />
+        </StackPanel>
+    </Border>
+</UserControl>
