@@ -9,10 +9,11 @@
 >
 
 
-    <Border Background="DarkRed" Padding="10" Margin="5" BorderBrush="Gray" BorderThickness="1">
+    <Border Background="LightBlue" Padding="10" Margin="5" BorderBrush="Gray" BorderThickness="1">
         <StackPanel>
             <TextBlock Text="{Binding MonthText}" FontWeight="Bold" />
             <TextBlock Text="{Binding BookTitle}" />
         </StackPanel>
     </Border>
+
 </UserControl>

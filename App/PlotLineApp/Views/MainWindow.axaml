@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:PlotLineApp.ViewModels"
+        xmlns:views="clr-namespace:PlotLineApp.Views"
         xmlns:cc="clr-namespace:PlotLineApp.CustomControls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -25,5 +26,8 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </ScrollViewer>
+
+    <ContentControl Content="{Binding CurrentView}" />
+
 
 </Window>
