@@ -17,17 +17,28 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding MonthlyBooks}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+    
+    <!-- BTN to switch to booksView -->
+    <Button Grid.Row="0" Content="Got To Books" Command="{Binding GoToBooksViewCommand}" />
+
+    <!-- TODO add navbar here -->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding MonthlyBooks}">
             <ItemsControl.ItemTemplate> 
                 <DataTemplate> 
                     <cc:MonthBookControl DataContext="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </ScrollViewer>
 
-    <ContentControl Content="{Binding CurrentView}" />
+        <!-- The dynamic content area -->
+        <ContentControl Grid.Row="2" Content="{Binding CurrentView}"/>
 
+        
+    </Grid>    
 
 </Window>

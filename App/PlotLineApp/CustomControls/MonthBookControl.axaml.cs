@@ -1,5 +1,5 @@
 using Avalonia.Controls;
-using Plotline.Models;
+using PlotLineApp.Models;
 using System;
 
 namespace PlotLineApp.CustomControls;

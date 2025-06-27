@@ -3,7 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="PlotLineApp.CustomControls.MonthBookControl"
-    xmlns:vm="clr-namespace:Plotline.Models"
+    xmlns:vm="clr-namespace:PlotLineApp.Models"
     x:DataType="vm:MonthBook"
     
 >

@@ -1,45 +1,25 @@
 ﻿using System; 
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using Plotline.Models;
+using PlotLineApp.Models;
+using PlotLineApp.Views;
 
 namespace PlotLineApp.ViewModels;
-
-public class RelayCommand : ICommand 
-{
-    // A relay cmd to open the bookView
-
-    private readonly Action _execute; 
-    private readonly Func<bool>? _canExecute;
-
-    public RelayCommand(Action execute, Func<bool>? _canExecute = null)
-    {
-        _execute = execute;
-        _canExecute = _canExecute;
-    }
-
-    public event EventHandler? CanExecuteChanged; 
-
-    public bool CanExecute(Object? parameter)
-    {
-        return _canExecute?.Invoke(parameter) ?? true;
-    }
-
-    public void Execute(object? parameter)
-    {
-        _execute(parameter);
-    }
-
-    public void RaiseCanExecuteChanged()
-    {
-        CanExecuteChanged?.Invoke(this, EventArgs.Empty);    
-    }
-}
-
 
 public partial class MainWindowViewModel : ViewModelBase
 {
     public ObservableCollection<MonthBook> MonthlyBooks {get;}
+
+    public ICommand GoToBooksViewCommand { get; }
+
+    private object? _currentView;
+
+    public object? CurrentView
+    {
+        get => _currentView;
+        set => SetProperty(ref _currentView, value);
+    }
+    
 
     public MainWindowViewModel()
     {
@@ -63,3 +43,46 @@ public partial class MainWindowViewModel : ViewModelBase
 }
 
 
+public class RelayCommand : ICommand 
+{
+    // A relay cmd to open the bookView
+
+    private readonly Action<object?> _execute; 
+    private readonly Func<object?, bool>? _canExecute;
+
+    // first constructor for cmds with params
+    public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute = null)
+    {
+        // _execute = execute ?? throw new ArgumentNullException(nameof(execute)); //this line is the clean way of doing the rest
+        if (execute != null)
+            _execute = execute;
+        else
+            throw new ArgumentNullException(nameof(execute));
+        _canExecute = canExecute;
+    }
+
+    // constructor that overloads for paramless usage
+
+    public RelayCommand(Action execute, Func<bool>? canExecute = null)
+    {
+        _execute = _ => execute();
+        _canExecute = canExecute == null ? null : (_ => canExecute());
+    }
+
+    public event EventHandler? CanExecuteChanged; 
+
+    public bool CanExecute(object? parameter)
+    {
+        return _canExecute?.Invoke(parameter) ?? true;
+    }
+
+    public void Execute(object? parameter)
+    {
+        _execute(parameter);
+    }
+
+    public void RaiseCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);    
+    }
+}

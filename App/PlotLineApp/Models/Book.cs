@@ -1,5 +1,5 @@
 
-namespace Plotline.Models
+namespace PlotLineApp.Models
 {
     public class Book
     {

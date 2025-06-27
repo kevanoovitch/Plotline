@@ -1,6 +1,6 @@
 
 using System.Collections.ObjectModel;
-using Plotline.Models;
+using PlotLineApp.Models;
 
 namespace PlotLineApp.ViewModels;
 
