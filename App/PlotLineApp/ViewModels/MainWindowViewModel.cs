@@ -23,6 +23,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
+
         MonthlyBooks = new ObservableCollection<MonthBook>();
         int currentYear = DateTime.Now.Year;
 
@@ -36,9 +37,19 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         GoToBooksViewCommand = new RelayCommand(() => 
-        {
-            CurrentView = new BooksView();
+        {   
+            try 
+            {
+                Console.WriteLine("Switching to BooksView..");
+                CurrentView = new BooksViewModel(); 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("failed to switch to BooksView: " + ex.Message);
+            }
         });
+
+        CurrentView = new YourDefaultViewModel(); 
     }
 }
 

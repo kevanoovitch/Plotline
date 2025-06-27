@@ -27,7 +27,7 @@
     <Button Grid.Row="0" Content="Got To Books" Command="{Binding GoToBooksViewCommand}" />
 
     <!-- TODO add navbar here -->
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding MonthlyBooks}">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentView}">
             <ItemsControl.ItemTemplate> 
                 <DataTemplate> 
                     <cc:MonthBookControl DataContext="{Binding}" />
