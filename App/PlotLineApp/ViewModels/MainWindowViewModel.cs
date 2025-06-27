@@ -8,7 +8,7 @@ namespace PlotLineApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<MonthBook> MonthlyBooks {get;}
+    public ObservableCollection<MonthBook>? MonthlyBooks {get;}
 
     public ICommand GoToBooksViewCommand { get; }
 
@@ -24,18 +24,6 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
 
-        MonthlyBooks = new ObservableCollection<MonthBook>();
-        int currentYear = DateTime.Now.Year;
-
-        for (int month = 1; month <= 12; month++)
-        {
-            MonthlyBooks.Add(new MonthBook
-            {
-                Month = new DateTime(currentYear,month,1),
-                BookTitle = "A default title" // TODO Remove placeholder string
-            });
-        }
-
         GoToBooksViewCommand = new RelayCommand(() => 
         {   
             try 
@@ -49,7 +37,7 @@ public partial class MainWindowViewModel : ViewModelBase
             }
         });
 
-        CurrentView = new YourDefaultViewModel(); 
+        CurrentView = new TimelineViewModel(); 
     }
 }
 
