@@ -23,20 +23,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     
-    <!-- BTN to switch to booksView -->
-    <Button Grid.Row="0" Content="Got To Books" Command="{Binding GoToBooksViewCommand}" />
+        <!-- BTN to switch to booksView -->
+         <Button Grid.Row="0" Content="Go To Books" Command="{Binding GoToBooksViewCommand}" Margin="10"/>
 
-    <!-- TODO add navbar here -->
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentView}">
-            <ItemsControl.ItemTemplate> 
-                <DataTemplate> 
-                    <cc:MonthBookControl DataContext="{Binding}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
 
         <!-- The dynamic content area -->
-        <ContentControl Grid.Row="2" Content="{Binding CurrentView}"/>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
 
         
     </Grid>    

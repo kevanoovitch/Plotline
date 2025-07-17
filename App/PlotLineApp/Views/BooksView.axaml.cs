@@ -7,7 +7,7 @@ namespace PlotLineApp.Views
         public BooksView()
         {
             InitializeComponent();
-            DataContext = new BooksView(); // Hooks up the ViewModel
+            
         }
     }
 }
