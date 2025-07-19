@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace PlotLineApp.Views
 {
-    public partial class BooksView : UserControl 
+    public partial class BooksWindow : Window 
     {
-        public BooksView()
+        public BooksWindow()
         {
             InitializeComponent();
             

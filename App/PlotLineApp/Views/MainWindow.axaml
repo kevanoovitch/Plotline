@@ -27,13 +27,16 @@
             <!-- btn to exit the app -->
             <Button Content="Exit" Command="{Binding ShutdownAppCommand}" />
 
-            <!-- BTN to switch to booksView -->
+            <!-- BTN to switch to get the popup -->
             <Button Content="Go To Books" Command="{Binding GoToBooksViewCommand}" Margin="10" />
         </StackPanel>
 
+        <views:TimelineView>
+            <views:TimelineView.DataContext>
+                <vm:TimelineViewModel />
+            </views:TimelineView.DataContext>
+        </views:TimelineView>
 
-        <!-- The dynamic content area -->
-        <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
     </DockPanel>
 
 

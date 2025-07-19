@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using PlotLineApp.ViewModels;
 using PlotLineApp.Services;
+using System;
 
 namespace PlotLineApp.Views;
 
@@ -9,6 +10,20 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainWindowViewModel(new AppCloser());
+        var viewModel = new MainWindowViewModel(new AppCloser());
+        DataContext = viewModel;
+
+        viewModel.OpenBooksPopupRequested += (_, _) =>
+        {   
+            Console.WriteLine("Popup requested!");
+            var popup = new BooksWindow
+            {
+                DataContext = new BooksViewModel(() => { })
+            };
+
+            popup.Show(this);
+        };
+
+       
     }
 }

@@ -15,17 +15,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public ICommand GoToBooksViewCommand { get; }
 
-    private object? _currentView;
-
-    public object? CurrentView
-    {
-        get => _currentView;
-        set => SetProperty(ref _currentView, value);
-    }
-    
+    public event EventHandler? OpenBooksPopupRequested;
 
     public MainWindowViewModel(IAppCloser appCloser)
-    {
+    {   
+
+        
+
         _appCloser = appCloser;      
 
         ShutdownAppCommand = new RelayCommand(_ => _appCloser.Shutdown());
@@ -33,16 +29,12 @@ public partial class MainWindowViewModel : ViewModelBase
         GoToBooksViewCommand = new RelayCommand(() =>
         {
 
-            Console.WriteLine("Switching to BooksView..");
-            CurrentView = new BooksViewModel(() =>
-            {
-
-                CurrentView = new TimelineViewModel();
-            });
+            Console.WriteLine("Requesting popup window..");
+            OpenBooksPopupRequested?.Invoke(this, EventArgs.Empty);
             
         });
 
-        CurrentView = new TimelineViewModel(); 
+ 
     }
 
     public ICommand ShutdownAppCommand {get;}
