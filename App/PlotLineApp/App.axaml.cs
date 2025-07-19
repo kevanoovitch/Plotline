@@ -6,6 +6,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using PlotLineApp.ViewModels;
 using PlotLineApp.Views;
+using PlotLineApp.Services;
 
 namespace PlotLineApp;
 
@@ -25,7 +26,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainWindowViewModel(new AppCloser()),
             };
         }
 

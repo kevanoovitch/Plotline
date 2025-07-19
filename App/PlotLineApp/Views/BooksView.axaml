@@ -4,7 +4,11 @@
              x:Class="PlotLineApp.Views.BooksView"
              x:DataType="vm:BooksViewModel">
 
+    
     <StackPanel Margin="20" Spacing="10">
+
+        <Button Content="Back to Timeline" Command="{Binding ReturnToMainCommand}" Margin="10"/>
+
         <TextBlock Text="Select a Book" FontSize="18" FontWeight="Bold"/>
         
         <ListBox ItemsSource="{Binding AvailableBooks}">
@@ -15,5 +19,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </StackPanel>
+
 
 </UserControl>

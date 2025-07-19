@@ -3,12 +3,15 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using PlotLineApp.Models;
 using PlotLineApp.Views;
+using PlotLineApp.Services;
 
 namespace PlotLineApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
     public ObservableCollection<MonthBook>? MonthlyBooks {get;}
+
+    private readonly IAppCloser _appCloser;
 
     public ICommand GoToBooksViewCommand { get; }
 
@@ -21,25 +24,30 @@ public partial class MainWindowViewModel : ViewModelBase
     }
     
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(IAppCloser appCloser)
     {
+        _appCloser = appCloser;      
 
-        GoToBooksViewCommand = new RelayCommand(() => 
-        {   
-            try 
+        ShutdownAppCommand = new RelayCommand(_ => _appCloser.Shutdown());
+
+        GoToBooksViewCommand = new RelayCommand(() =>
+        {
+
+            Console.WriteLine("Switching to BooksView..");
+            CurrentView = new BooksViewModel(() =>
             {
-                Console.WriteLine("Switching to BooksView..");
-                CurrentView = new BooksViewModel(); 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("failed to switch to BooksView: " + ex.Message);
-            }
+
+                CurrentView = new TimelineViewModel();
+            });
+            
         });
 
         CurrentView = new TimelineViewModel(); 
     }
+
+    public ICommand ShutdownAppCommand {get;}
 }
+
 
 
 public class RelayCommand : ICommand 
@@ -85,3 +93,4 @@ public class RelayCommand : ICommand
         CanExecuteChanged?.Invoke(this, EventArgs.Empty);    
     }
 }
+
