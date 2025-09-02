@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dnd="clr-namespace:Avalonia.Input;assembly=Avalonia.Base"
+    xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
+    x:Class="PlotLineApp.Views.TimelineView"
+    x:DataType="vm:TimelineViewModel">
+
+    <StackPanel Margin="20" Spacing="10">
+        <ListBox ItemsSource="{Binding MonthlyBooks}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Background="LightBlue"
+                        Padding="10" Margin="5"
+                        CornerRadius="5"
+                        dnd:DragDrop.AllowDrop="True"
+                        dnd:DragDrop.DragOver="OnDragOver"
+                        dnd:DragDrop.Drop="OnDrop">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Month, StringFormat='{}{0:MMMM}'}"
+                                FontWeight="Bold" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+</UserControl>

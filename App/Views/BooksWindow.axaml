@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dnd="clr-namespace:Avalonia.Input;assembly=Avalonia.Controls"
+    xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
+    x:Class="PlotLineApp.Views.BooksWindow"
+    x:DataType="vm:BooksViewModel"
+    Width="400" Height="600"
+    Title="Select a Book">
+
+
+    <StackPanel Margin="20" Spacing="10">
+
+        <Button Content="Back to Timeline" Command="{Binding ReturnToMainCommand}" Margin="10" />
+
+        <TextBlock Text="Select a Book" FontSize="18" FontWeight="Bold" />
+
+        <ListBox ItemsSource="{Binding AvailableBooks}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border PointerPressed="Book_PointerPressed"
+                        Margin="4" Background="LightGray">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" />
+                            <Image Source="{Binding CoverImagePath}" Width="60" Height="90" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+
+
+</Window>
