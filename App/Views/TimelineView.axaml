@@ -1,14 +1,89 @@
 <UserControl xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dnd="clr-namespace:Avalonia.Input;assembly=Avalonia.Base"
+    xmlns:dnd="using:Avalonia.Input"
     xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
+    xmlns:m="clr-namespace:PlotLineApp.Models"
     x:Class="PlotLineApp.Views.TimelineView"
     x:DataType="vm:TimelineViewModel">
 
+
+    <Grid Margin="20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding MonthlyBooks}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="m:MonthBook">
+                        <Border
+                            Background="LightBlue"
+                            Width="260"
+                            Padding="6" Margin="5"
+                            CornerRadius="5"
+                            dnd:DragDrop.AllowDrop="True"
+                            dnd:DragDrop.DragOver="OnDragOver"
+                            dnd:DragDrop.Drop="OnDrop">
+                            <StackPanel>
+                                <DockPanel LastChildFill="False" Margin="0,0,0,6">
+                                    <TextBlock DockPanel.Dock="Left"
+                                        Text="{Binding Month, StringFormat='{}{0:MMMM}'}"
+                                        FontWeight="Bold" />
+                                    <Button DockPanel.Dock="Right" Content="Add" Width="60"
+                                        Click="OnAddBookClick" />
+                                </DockPanel>
+
+                                <ItemsControl ItemsSource="{Binding AssignedBooks}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="m:Book">
+                                            <StackPanel Width="96" Margin="6,4" Spacing="4">
+                                                <Grid>
+                                                    <Image Width="80" Height="120"
+                                                        Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}" />
+                                                    <Button Width="20" Height="20"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Padding="0"
+                                                        Background="#AA000000" Foreground="White"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Margin="0" Content="X"
+                                                        ToolTip.Tip="Remove from this month"
+                                                        Click="OnRemoveBookClick" />
+                                                </Grid>
+                                                <TextBlock Text="{Binding Title}"
+                                                    FontSize="11"
+                                                    TextWrapping="Wrap"
+                                                    TextTrimming="CharacterEllipsis"
+                                                />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+
+    </Grid>
+
+    <!-- TODO smell remove  old 
+     
     <StackPanel Margin="20" Spacing="10">
         <ListBox ItemsSource="{Binding MonthlyBooks}">
             <ListBox.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="m:MonthBook">
                     <Border
                         Background="LightBlue"
                         Padding="10" Margin="5"
@@ -19,10 +94,45 @@
                         <StackPanel>
                             <TextBlock Text="{Binding Month, StringFormat='{}{0:MMMM}'}"
                                 FontWeight="Bold" />
+
+                            <Button Content="Add" Width="60" Margin="0,6,0,0" Click="OnAddBookClick" />
+
+                            <ItemsControl ItemsSource="{Binding AssignedBooks}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="m:Book">
+                                        <StackPanel Width="100" Margin="6,4"
+                                            HorizontalAlignment="Left" Spacing="4">
+                                            <Grid>
+                                                <Image
+                                                    Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}"
+                                                    Width="80" Height="120" />
+                                                <Button Width="20" Height="20"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Padding="0"
+                                                    Background="#AA000000" Foreground="White"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    Margin="0" Content="X"
+                                                    ToolTip.Tip="Remove from this month"
+                                                    Click="OnRemoveBookClick" />
+                                            </Grid>
+                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap"
+                                                FontSize="12" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
     </StackPanel>
+    -->
 </UserControl>

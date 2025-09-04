@@ -22,5 +22,14 @@ namespace PlotLineApp.Models
             }
         }
 
+        public void RemoveBook(Book book)
+        {
+            if (book == null) return;
+            if (AssignedBooks.Contains(book))
+            {
+                AssignedBooks.Remove(book);
+            }
+        }
+
     }
 }

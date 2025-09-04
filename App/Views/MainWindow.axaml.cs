@@ -2,6 +2,9 @@ using Avalonia.Controls;
 using PlotLineApp.ViewModels;
 using PlotLineApp.Services;
 using System;
+using System.Linq;
+using Avalonia.Controls.Primitives;
+
 
 namespace PlotLineApp.Views;
 
@@ -14,7 +17,7 @@ public partial class MainWindow : Window
         DataContext = viewModel;
 
         viewModel.OpenBooksPopupRequested += (_, _) =>
-        {   
+        {
             Console.WriteLine("Popup requested!");
             var popup = new BooksWindow
             {
@@ -24,6 +27,7 @@ public partial class MainWindow : Window
             popup.Show(this);
         };
 
+        
        
     }
 }

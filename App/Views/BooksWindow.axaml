@@ -1,32 +1,57 @@
 <Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dnd="clr-namespace:Avalonia.Input;assembly=Avalonia.Controls"
+    xmlns:dnd="using:Avalonia.Input"
     xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
     x:Class="PlotLineApp.Views.BooksWindow"
     x:DataType="vm:BooksViewModel"
-    Width="400" Height="600"
+    Width="360" Height="520" CanResize="False"
     Title="Select a Book">
 
 
     <StackPanel Margin="20" Spacing="10">
-
-        <Button Content="Back to Timeline" Command="{Binding ReturnToMainCommand}" Margin="10" />
-
         <TextBlock Text="Select a Book" FontSize="18" FontWeight="Bold" />
 
-        <ListBox ItemsSource="{Binding AvailableBooks}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border PointerPressed="Book_PointerPressed"
-                        Margin="4" Background="LightGray">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" />
-                            <Image Source="{Binding CoverImagePath}" Width="60" Height="90" />
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <!-- Search input -->
+        <DockPanel>
+            <TextBox
+                Width="200"
+                Watermark="Search books..."
+                Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Clear" Margin="8,0,0,0" DockPanel.Dock="Right"
+                    Click="OnClearSearchClick" />
+        </DockPanel>
+
+        <!-- Grid of covers -->
+        <ScrollViewer Height="400">
+            <ItemsControl ItemsSource="{Binding FilteredBooks}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="6" Background="#EEE" CornerRadius="6" Padding="6"
+                                DoubleTapped="Book_DoubleTapped">
+                            <StackPanel Width="120" Spacing="6">
+                                <Border Background="#DDD" CornerRadius="4" ClipToBounds="True">
+                                    <Image Width="120" Height="180"
+                                           Stretch="UniformToFill"
+                                           Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}" />
+                                </Border>
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontSize="12" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Empty state when no results (requires HasNoResults in VM) -->
+        <TextBlock Text="No books match your search."
+                   IsVisible="{Binding HasNoResults}"
+                   Foreground="Gray" />
+
     </StackPanel>
 
 

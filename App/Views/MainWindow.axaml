@@ -27,8 +27,6 @@
             <!-- btn to exit the app -->
             <Button Content="Exit" Command="{Binding ShutdownAppCommand}" />
 
-            <!-- BTN to switch to get the popup -->
-            <Button Content="Go To Books" Command="{Binding GoToBooksViewCommand}" Margin="10" />
         </StackPanel>
 
         <views:TimelineView>

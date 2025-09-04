@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:dnd="using:Avalonia.Input"
+  xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
+  x:Class="PlotLineApp.Views.BooksView"
+  x:DataType="vm:BooksViewModel">
+  <StackPanel Margin="20" Spacing="10">
+    <TextBlock Text="Select a Book" FontSize="18" FontWeight="Bold" />
+    <ListBox ItemsSource="{Binding AvailableBooks}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border DoubleTapped="Book_DoubleTapped"
+            Margin="4" Background="LightGray">
+            <StackPanel>
+              <TextBlock Text="{Binding Title}" />
+              <Image Source="{Binding CoverImagePath}" Width="60" Height="90" />
+            </StackPanel>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </StackPanel>
+</UserControl>
