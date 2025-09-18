@@ -56,3 +56,6 @@ nunit-*.xml
 
 # Avalonia UI
 .avalonia/
+
+# Ignore markdown dev guides
+/guides/

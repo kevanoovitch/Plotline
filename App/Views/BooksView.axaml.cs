@@ -12,12 +12,6 @@ namespace PlotLineApp.Views
 
         public event Action<Book>? BookChosen;
 
-        //TODO: Smell: Init redundant?
-        public BooksView()
-        {
-            InitializeComponent();
-        }
-
         public void Book_DoubleTapped(object? sender, TappedEventArgs e)
         {
             if (sender is Border border && border.DataContext is Book book)

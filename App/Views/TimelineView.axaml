@@ -23,10 +23,7 @@
                             Background="LightBlue"
                             Width="260"
                             Padding="6" Margin="5"
-                            CornerRadius="5"
-                            dnd:DragDrop.AllowDrop="True"
-                            dnd:DragDrop.DragOver="OnDragOver"
-                            dnd:DragDrop.Drop="OnDrop">
+                            CornerRadius="5">
                             <StackPanel>
                                 <DockPanel LastChildFill="False" Margin="0,0,0,6">
                                     <TextBlock DockPanel.Dock="Left"
@@ -78,61 +75,4 @@
 
     </Grid>
 
-    <!-- TODO smell remove  old 
-     
-    <StackPanel Margin="20" Spacing="10">
-        <ListBox ItemsSource="{Binding MonthlyBooks}">
-            <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="m:MonthBook">
-                    <Border
-                        Background="LightBlue"
-                        Padding="10" Margin="5"
-                        CornerRadius="5"
-                        dnd:DragDrop.AllowDrop="True"
-                        dnd:DragDrop.DragOver="OnDragOver"
-                        dnd:DragDrop.Drop="OnDrop">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Month, StringFormat='{}{0:MMMM}'}"
-                                FontWeight="Bold" />
-
-                            <Button Content="Add" Width="60" Margin="0,6,0,0" Click="OnAddBookClick" />
-
-                            <ItemsControl ItemsSource="{Binding AssignedBooks}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="m:Book">
-                                        <StackPanel Width="100" Margin="6,4"
-                                            HorizontalAlignment="Left" Spacing="4">
-                                            <Grid>
-                                                <Image
-                                                    Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}"
-                                                    Width="80" Height="120" />
-                                                <Button Width="20" Height="20"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Top"
-                                                    Padding="0"
-                                                    Background="#AA000000" Foreground="White"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    Margin="0" Content="X"
-                                                    ToolTip.Tip="Remove from this month"
-                                                    Click="OnRemoveBookClick" />
-                                            </Grid>
-                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap"
-                                                FontSize="12" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </StackPanel>
-    -->
 </UserControl>

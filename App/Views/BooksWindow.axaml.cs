@@ -31,18 +31,6 @@ namespace PlotLineApp.Views
                 vm.SearchTerm = string.Empty;
         }
 
-        //TODO: Remove old book_pointerpressed
-        public async void Book_PointerPressed(object sender, PointerPressedEventArgs e)
-        {
-            if (sender is Border border && border.DataContext is Book book)
-            {
-                Console.WriteLine($"Starting drag for '{book.Title}'");
-                var data = new DataObject();
-                data.Set("book", book);
-                await DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);
-            }
-        }
-
     }
     
    
