@@ -7,6 +7,7 @@ using Plotline.DnD;
 using System;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using PlotlineApp.Services;
 
 namespace PlotLineApp.Views;
 
@@ -49,14 +50,16 @@ public partial class TimelineView : UserControl
     {
         if (sender is not Button button) return;
 
-        if (button.DataContext is not Book book) return;
-
+        var book = button.DataContext as Book;
         var month = button.FindAncestorOfType<Border>()?.DataContext as MonthBook;
-        if (month is null) return;
 
-        month.RemoveBook(book);
+        TimelineActions.RemoveFromMonth(month, book);
+
         e.Handled = true;
-     }
+    }
+
+    
+
 
     //TODO: Remove OnDragOver() & OnDrop
 

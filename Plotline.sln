@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -7,6 +7,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlotLineApp", "App\PlotLineApp.csproj", "{C758ACDC-E690-F5A2-9E19-64DB5862730E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plotline.UnitTests", "Tests\UnitTests\Plotline.UnitTests.csproj", "{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,12 +20,17 @@ Global
 		{C758ACDC-E690-F5A2-9E19-64DB5862730E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C758ACDC-E690-F5A2-9E19-64DB5862730E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C758ACDC-E690-F5A2-9E19-64DB5862730E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C758ACDC-E690-F5A2-9E19-64DB5862730E} = {F95F473B-E98A-ACD6-1986-755F447BE36F}
+		{FE62671D-54A8-46BB-BCF7-A846D3DCCD2F} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE5CD8D2-8CD3-4A9C-BC3A-1F421CF90E80}
