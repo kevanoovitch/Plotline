@@ -13,7 +13,7 @@
             Margin="4" Background="LightGray">
             <StackPanel>
               <TextBlock Text="{Binding Title}" />
-              <Image Source="{Binding CoverImagePath}" Width="60" Height="90" />
+              <Image Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}" Width="60" Height="90" />
             </StackPanel>
           </Border>
         </DataTemplate>

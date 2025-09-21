@@ -8,6 +8,7 @@ using System;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using PlotlineApp.Services;
+using App.API;
 
 namespace PlotLineApp.Views;
 
@@ -25,8 +26,11 @@ public partial class TimelineView : UserControl
 
         var popup = new BooksWindow
         {
-            DataContext = new ViewModels.BooksViewModel(() => { })
+            DataContext = new BooksViewModel(
+                onReturn: () => { },
+                catalog: new GoogleBooksInterface())
         };
+        
 
         popup.BookChosen += Book =>
         {

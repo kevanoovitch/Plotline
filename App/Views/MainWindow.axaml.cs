@@ -4,6 +4,7 @@ using PlotLineApp.Services;
 using System;
 using System.Linq;
 using Avalonia.Controls.Primitives;
+using App.API;
 
 
 namespace PlotLineApp.Views;
@@ -21,7 +22,9 @@ public partial class MainWindow : Window
             Console.WriteLine("Popup requested!");
             var popup = new BooksWindow
             {
-                DataContext = new BooksViewModel(() => { })
+                DataContext = new BooksViewModel(
+                    onReturn: () => { },
+                    catalog: new GoogleBooksInterface())
             };
 
             popup.Show(this);

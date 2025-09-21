@@ -59,3 +59,6 @@ nunit-*.xml
 
 # Ignore markdown dev guides
 /guides/
+
+#Ignore env file
+*.env

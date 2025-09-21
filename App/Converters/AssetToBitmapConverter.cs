@@ -3,6 +3,7 @@ using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using System.Net.Http;
 
 namespace PlotLineApp.Converters
 {
@@ -18,10 +19,23 @@ namespace PlotLineApp.Converters
                 // If it's already an absolute URI, try to load via assets first
                 if (Uri.TryCreate(s, UriKind.Absolute, out var uri))
                 {
+                    // 1) Avalonia asset URI (avares://...)
                     if (AssetLoader.Exists(uri))
                     {
                         using var stream = AssetLoader.Open(uri);
                         return new Bitmap(stream);
+                    }
+
+                    // 2) Remote HTTP(S) image
+                    if (uri.Scheme is "http" or "https")
+                    {
+                        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+                        using var resp = http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+                        if (resp.IsSuccessStatusCode)
+                        {
+                            using var netStream = resp.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+                            return new Bitmap(netStream);
+                        }
                     }
                 }
                 else
@@ -55,4 +69,3 @@ namespace PlotLineApp.Converters
         }
     }
 }
-
