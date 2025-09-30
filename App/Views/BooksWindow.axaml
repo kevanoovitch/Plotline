@@ -2,6 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dnd="using:Avalonia.Input"
     xmlns:vm="clr-namespace:PlotLineApp.ViewModels"
+    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls"
     x:Class="PlotLineApp.Views.BooksWindow"
     x:DataType="vm:BooksViewModel"
     Width="360" Height="520" CanResize="False"
@@ -18,11 +19,12 @@
                 Watermark="Search books..."
                 Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="Clear" Margin="8,0,0,0" DockPanel.Dock="Right"
-                    Click="OnClearSearchClick" />
+                Click="OnClearSearchClick" />
         </DockPanel>
 
         <!-- Grid of covers -->
-        <ScrollViewer Height="400">
+        <Grid Height="400">
+            <ScrollViewer IsVisible="{Binding HasResults}">
             <ItemsControl ItemsSource="{Binding FilteredBooks}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -32,12 +34,12 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="6" Background="#EEE" CornerRadius="6" Padding="6"
-                                DoubleTapped="Book_DoubleTapped">
+                            DoubleTapped="Book_DoubleTapped">
                             <StackPanel Width="120" Spacing="6">
                                 <Border Background="#DDD" CornerRadius="4" ClipToBounds="True">
                                     <Image Width="120" Height="180"
-                                           Stretch="UniformToFill"
-                                           Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}" />
+                                        Stretch="UniformToFill"
+                                        Source="{Binding CoverImagePath, Converter={StaticResource AssetToBitmap}}" />
                                 </Border>
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontSize="12" />
                             </StackPanel>
@@ -47,12 +49,23 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- Empty state when no results (requires HasNoResults in VM) -->
-        <TextBlock Text="No books match your search."
-                   IsVisible="{Binding HasNoResults}"
-                   Foreground="Gray" />
+            <!-- Loading state -->
 
+            <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="12"
+                IsVisible="{Binding IsLoading}">
+                <ProgressBar Width="160" IsIndeterminate="True"/>
+                <TextBlock Text="Searching…" Foreground="Gray" />
+            </StackPanel>
+            
+            <!-- Empty state when no results (requires HasNoResults in VM) -->
+
+            <TextBlock Text="No books match your search."
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Gray"
+                    IsVisible="{Binding HasNoResults}" />
+        </Grid>
     </StackPanel>
-
-
 </Window>

@@ -21,9 +21,17 @@ public class BooksViewModel : ViewModelBase
 
     private CancellationTokenSource? _cts; 
     private bool _isLoading;
-    public bool IsLoading { get => _isLoading;
-    private set { _isLoading = value; 
-    OnPropertyChanged();}}
+    public bool IsLoading
+    {
+        get => _isLoading;
+        private set
+        {
+            if (_isLoading == value) return;
+            _isLoading = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(HasNoResults));
+        }
+    }
 
     public ICommand ReturnToMainCommand {get;}
 
@@ -110,7 +118,7 @@ public class BooksViewModel : ViewModelBase
 
     public IEnumerable<Book> FilteredBooks => AvailableBooks;
     public bool HasResults => AvailableBooks.Any();
-    public bool HasNoResults => !HasResults;
+    public bool HasNoResults => !IsLoading && !HasResults;
 
    
     private readonly Action _onReturn;
