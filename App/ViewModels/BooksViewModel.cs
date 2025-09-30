@@ -16,6 +16,9 @@ namespace PlotLineApp.ViewModels;
 public class BooksViewModel : ViewModelBase
 {
 
+    private const string DefaultCover = "avares://PlotLineApp/Assets/GenericCover.png";
+
+
     private CancellationTokenSource? _cts; 
     private bool _isLoading;
     public bool IsLoading { get => _isLoading;
@@ -25,17 +28,33 @@ public class BooksViewModel : ViewModelBase
     public ICommand ReturnToMainCommand {get;}
 
     public string? Error {get; private set;}
-    
-    
-    
 
-    private static AppBook Map(GoogleBook g) => new AppBook(
-        title: g.Title,
-        coverImagePath: g.CoverImageUrl ?? "avares://PlotLineApp/Assets/dune.png",
-        authors: g.Authors,
-        publishedYear : g.PublishedYear,
-        externalId: g.ExternalId
-    );
+
+    private static AppBook Map(GoogleBook g)
+    {
+        var cover = g.CoverImageUrl;
+
+        if (!string.IsNullOrWhiteSpace(cover))
+        {
+            if (cover.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+                cover = "https://" + cover[7..];
+
+        }
+        else
+        {
+            cover = DefaultCover;
+        }
+
+        return new AppBook(
+            title: g.Title,
+            coverImagePath: cover,
+            authors: g.Authors,
+            publishedYear: g.PublishedYear,
+            externalId: g.ExternalId
+        );
+
+    }
+
 
   
 
@@ -93,26 +112,7 @@ public class BooksViewModel : ViewModelBase
     public bool HasResults => AvailableBooks.Any();
     public bool HasNoResults => !HasResults;
 
-    // FIXME: Remove old code
-    
-    /*
-    public IEnumerable<Book> FilteredBooks
-    {
-        get
-        {
-            var q = SearchTerm?.Trim();
-            if (string.IsNullOrEmpty(q)) return AvailableBooks;
-            return AvailableBooks.Where(b => (!string.IsNullOrEmpty(b.Title) &&
-            b.Title.Contains(q, StringComparison.OrdinalIgnoreCase))
-            );
-        }
-    }
- 
-
-	public bool HasResults => FilteredBooks.Any();
-	public bool HasNoResults => !HasResults;
-	public ICommand ReturnToMainCommand { get; }
-    */
+   
     private readonly Action _onReturn;
 
     public BooksViewModel(Action onReturn, IGoogleBooksInterface catalog)
@@ -125,17 +125,6 @@ public class BooksViewModel : ViewModelBase
         AvailableBooks = new ObservableCollection<Book>();
 
 
-        //FIXME: OLD code
-        // Use Avalonia resource URIs for embedded assets (see csproj <AvaloniaResource Include="Assets/**" />)
-        // Note: currently only dune.png exists in Assets; others point to dune.png as a placeholder.
-        /*
-        AvailableBooks = new ObservableCollection<Book>
-        {
-            new Book("Dune", "avares://PlotLineApp/Assets/dune.png"),
-            new Book("1984", "avares://PlotLineApp/Assets/dune.png"),
-            new Book("Mistborn", "avares://PlotLineApp/Assets/dune.png")
-        };
-        */
     }
 
     // Inherits ObservableObject.OnPropertyChanged from ViewModelBase

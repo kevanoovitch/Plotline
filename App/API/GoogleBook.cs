@@ -51,6 +51,7 @@ public sealed class GoogleBooksInterface : IGoogleBooksInterface
             var year = ParseYear(info.PublishedDate);
             var authors = (IReadOnlyList<string>)(info.Authors ?? Array.Empty<string>());
 
+
             list.Add(new GoogleBook
             {
                 Title = title,
